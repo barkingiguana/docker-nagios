@@ -14,4 +14,5 @@ RUN chmod +x /usr/local/sbin/start-app.sh
 CMD [ "/usr/local/sbin/start-app.sh" ]
 EXPOSE 80
 
-ONBUILD ADD ./conf.d /etc/nagios3/conf.d/local
+ADD ./conf.d /etc/nagios3/conf.d/000_base
+ONBUILD ADD ./conf.d /etc/nagios3/conf.d/001_local
