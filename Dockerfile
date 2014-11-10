@@ -8,7 +8,10 @@ RUN usermod -a -G nagios www-data
 RUN chmod -R g+x /var/lib/nagios3/
 RUN sed -i 's/check_external_commands=0/check_external_commands=1/g' /etc/nagios3/nagios.cfg
 
-RUN /etc/init.d/apache2 start
-ENTRYPOINT [" /usr/sbin/nagios3" ]
-CMD [ "-d", "/etc/nagios3/nagios.cfg" ]
+ADD ./htpasswd /etc/nagios3/htpasswd.users
+ADD ./start-app.sh /usr/local/sbin/start-app.sh
+RUN chmod +x /usr/local/sbin/start-app.sh
+CMD [ "/usr/local/sbin/start-app.sh" ]
 EXPOSE 80
+
+ONBUILD ADD ./conf.d /etc/nagios3/conf.d/local
