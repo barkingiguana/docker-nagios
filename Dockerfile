@@ -9,6 +9,7 @@ RUN chmod -R g+x /var/lib/nagios3/
 RUN sed -i 's/check_external_commands=0/check_external_commands=1/g' /etc/nagios3/nagios.cfg
 
 ADD ./htpasswd /etc/nagios3/htpasswd.users
+ADD ./apache2.envvars /etc/apache2/envvars
 ADD ./start-app.sh /usr/local/sbin/start-app.sh
 RUN chmod +x /usr/local/sbin/start-app.sh
 CMD [ "/usr/local/sbin/start-app.sh" ]
